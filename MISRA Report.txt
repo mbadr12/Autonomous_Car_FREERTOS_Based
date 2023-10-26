@@ -1,0 +1,64 @@
+## Most of these Rules are 
+Description	Resource	Path	Location	Type
+#1376-D (MISRA-C:2004 1.1/R) Ensure strict ANSI C mode (-ps) is enabled	Platform_Types.h	/MegaProject/LIB	line 17	C/C++ Problem
+#1376-D (MISRA-C:2004 1.1/R) Ensure strict ANSI C mode (-ps) is enabled	RC_Car.h	/MegaProject/APP	line 37	C/C++ Problem
+#1383-D (MISRA-C:2004 8.1/R) Functions shall have prototype declarations and the prototype shall be visible at both the function definition and call	main.c	/MegaProject	line 22	C/C++ Problem
+#1391-D (MISRA-C:2004 9.2/R) Braces shall be used to indicate and match the structure in the non-zero initialization of arrays and structures	RC_Car.c	/MegaProject/APP	line 37	C/C++ Problem
+#1428-D (MISRA-C:2004 19.7/A) A function should be used in preference to a function-like macro	Bit_Math.h	/MegaProject/LIB	line 17	C/C++ Problem
+#1428-D (MISRA-C:2004 19.7/A) A function should be used in preference to a function-like macro	Bit_Math.h	/MegaProject/LIB	line 18	C/C++ Problem
+#1428-D (MISRA-C:2004 19.7/A) A function should be used in preference to a function-like macro	Bit_Math.h	/MegaProject/LIB	line 19	C/C++ Problem
+#1428-D (MISRA-C:2004 19.7/A) A function should be used in preference to a function-like macro	Bit_Math.h	/MegaProject/LIB	line 20	C/C++ Problem
+#1428-D (MISRA-C:2004 19.7/A) A function should be used in preference to a function-like macro	Bit_Math.h	/MegaProject/LIB	line 21	C/C++ Problem
+#1428-D (MISRA-C:2004 19.7/A) A function should be used in preference to a function-like macro	Bit_Math.h	/MegaProject/LIB	line 22	C/C++ Problem
+#1428-D (MISRA-C:2004 19.7/A) A function should be used in preference to a function-like macro	Bit_Math.h	/MegaProject/LIB	line 23	C/C++ Problem
+#1435-D (MISRA-C:2004 20.1/R) Reserved identifiers, macros and functions in the standard library, shall not be defined, redefined or undefined ("NULL")	Std_Types.h	/MegaProject/LIB	line 24	C/C++ Problem
+#1496-D (MISRA-C:2004 5.6/A) No identifier in one name space should have the same spelling as an identifier in another name space, with the exception of structure member and union member names ("Channel")	PWM.h	/MegaProject/MCAL/PWM	line 45	C/C++ Problem
+#1496-D (MISRA-C:2004 5.6/A) No identifier in one name space should have the same spelling as an identifier in another name space, with the exception of structure member and union member names ("Channel")	PWM.h	/MegaProject/MCAL/PWM	line 47	C/C++ Problem
+#1496-D (MISRA-C:2004 5.6/A) No identifier in one name space should have the same spelling as an identifier in another name space, with the exception of structure member and union member names ("Sequencer")	ADC.h	/MegaProject/MCAL/ADC	line 76	C/C++ Problem
+#1496-D (MISRA-C:2004 5.6/A) No identifier in one name space should have the same spelling as an identifier in another name space, with the exception of structure member and union member names ("Sequencer")	ADC.h	/MegaProject/MCAL/ADC	line 77	C/C++ Problem
+#1496-D (MISRA-C:2004 5.6/A) No identifier in one name space should have the same spelling as an identifier in another name space, with the exception of structure member and union member names ("Sequencer")	ADC.h	/MegaProject/MCAL/ADC	line 78	C/C++ Problem
+#1496-D (MISRA-C:2004 5.6/A) No identifier in one name space should have the same spelling as an identifier in another name space, with the exception of structure member and union member names ("Sequencer")	ADC.h	/MegaProject/MCAL/ADC	line 79	C/C++ Problem
+#1496-D (MISRA-C:2004 5.6/A) No identifier in one name space should have the same spelling as an identifier in another name space, with the exception of structure member and union member names ("Sequencer")	ADC.h	/MegaProject/MCAL/ADC	line 80	C/C++ Problem
+#1496-D (MISRA-C:2004 5.6/A) No identifier in one name space should have the same spelling as an identifier in another name space, with the exception of structure member and union member names ("Sequencer")	ADC.h	/MegaProject/MCAL/ADC	line 81	C/C++ Problem
+#1496-D (MISRA-C:2004 5.6/A) No identifier in one name space should have the same spelling as an identifier in another name space, with the exception of structure member and union member names ("Sequencer")	ADC.h	/MegaProject/MCAL/ADC	line 82	C/C++ Problem
+#1497-D (MISRA-C:2004 5.7/A) No identifier name should be reused ("CTL")	TM4C123xx.h	/MegaProject/LIB	line 257	C/C++ Problem
+#1497-D (MISRA-C:2004 5.7/A) No identifier name should be reused ("CTL")	TM4C123xx.h	/MegaProject/LIB	line 339	C/C++ Problem
+#1497-D (MISRA-C:2004 5.7/A) No identifier name should be reused ("CTL")	TM4C123xx.h	/MegaProject/LIB	line 366	C/C++ Problem
+#1497-D (MISRA-C:2004 5.7/A) No identifier name should be reused ("DMACTL")	TM4C123xx.h	/MegaProject/LIB	line 345	C/C++ Problem
+#1497-D (MISRA-C:2004 5.7/A) No identifier name should be reused ("ICR")	TM4C123xx.h	/MegaProject/LIB	line 207	C/C++ Problem
+#1497-D (MISRA-C:2004 5.7/A) No identifier name should be reused ("ICR")	TM4C123xx.h	/MegaProject/LIB	line 344	C/C++ Problem
+#1497-D (MISRA-C:2004 5.7/A) No identifier name should be reused ("IM")	TM4C123xx.h	/MegaProject/LIB	line 245	C/C++ Problem
+#1497-D (MISRA-C:2004 5.7/A) No identifier name should be reused ("IM")	TM4C123xx.h	/MegaProject/LIB	line 341	C/C++ Problem
+#1497-D (MISRA-C:2004 5.7/A) No identifier name should be reused ("ISC")	TM4C123xx.h	/MegaProject/LIB	line 373	C/C++ Problem
+#1497-D (MISRA-C:2004 5.7/A) No identifier name should be reused ("MIS")	TM4C123xx.h	/MegaProject/LIB	line 206	C/C++ Problem
+#1497-D (MISRA-C:2004 5.7/A) No identifier name should be reused ("MIS")	TM4C123xx.h	/MegaProject/LIB	line 343	C/C++ Problem
+#1497-D (MISRA-C:2004 5.7/A) No identifier name should be reused ("Pin")	EXTI.h	/MegaProject/MCAL/EXTI	line 58	C/C++ Problem
+#1497-D (MISRA-C:2004 5.7/A) No identifier name should be reused ("Port")	EXTI.h	/MegaProject/MCAL/EXTI	line 57	C/C++ Problem
+#1497-D (MISRA-C:2004 5.7/A) No identifier name should be reused ("PP")	TM4C123xx.h	/MegaProject/LIB	line 307	C/C++ Problem
+#1497-D (MISRA-C:2004 5.7/A) No identifier name should be reused ("PP")	TM4C123xx.h	/MegaProject/LIB	line 457	C/C++ Problem
+#1497-D (MISRA-C:2004 5.7/A) No identifier name should be reused ("Reserved")	TM4C123xx.h	/MegaProject/LIB	line 96	C/C++ Problem
+#1497-D (MISRA-C:2004 5.7/A) No identifier name should be reused ("Reserved")	TM4C123xx.h	/MegaProject/LIB	line 141	C/C++ Problem
+#1497-D (MISRA-C:2004 5.7/A) No identifier name should be reused ("Reserved")	TM4C123xx.h	/MegaProject/LIB	line 174	C/C++ Problem
+#1497-D (MISRA-C:2004 5.7/A) No identifier name should be reused ("Reserved")	TM4C123xx.h	/MegaProject/LIB	line 203	C/C++ Problem
+#1497-D (MISRA-C:2004 5.7/A) No identifier name should be reused ("Reserved")	TM4C123xx.h	/MegaProject/LIB	line 254	C/C++ Problem
+#1497-D (MISRA-C:2004 5.7/A) No identifier name should be reused ("Reserved")	TM4C123xx.h	/MegaProject/LIB	line 332	C/C++ Problem
+#1497-D (MISRA-C:2004 5.7/A) No identifier name should be reused ("Reserved2")	TM4C123xx.h	/MegaProject/LIB	line 143	C/C++ Problem
+#1497-D (MISRA-C:2004 5.7/A) No identifier name should be reused ("Reserved2")	TM4C123xx.h	/MegaProject/LIB	line 258	C/C++ Problem
+#1497-D (MISRA-C:2004 5.7/A) No identifier name should be reused ("Reserved3")	TM4C123xx.h	/MegaProject/LIB	line 145	C/C++ Problem
+#1497-D (MISRA-C:2004 5.7/A) No identifier name should be reused ("Reserved3")	TM4C123xx.h	/MegaProject/LIB	line 265	C/C++ Problem
+#1497-D (MISRA-C:2004 5.7/A) No identifier name should be reused ("Reserved4")	TM4C123xx.h	/MegaProject/LIB	line 147	C/C++ Problem
+#1497-D (MISRA-C:2004 5.7/A) No identifier name should be reused ("Reserved4")	TM4C123xx.h	/MegaProject/LIB	line 272	C/C++ Problem
+#1497-D (MISRA-C:2004 5.7/A) No identifier name should be reused ("Reserved5")	TM4C123xx.h	/MegaProject/LIB	line 149	C/C++ Problem
+#1497-D (MISRA-C:2004 5.7/A) No identifier name should be reused ("Reserved5")	TM4C123xx.h	/MegaProject/LIB	line 279	C/C++ Problem
+#1497-D (MISRA-C:2004 5.7/A) No identifier name should be reused ("Reserved6")	TM4C123xx.h	/MegaProject/LIB	line 286	C/C++ Problem
+#1497-D (MISRA-C:2004 5.7/A) No identifier name should be reused ("Reserved7")	TM4C123xx.h	/MegaProject/LIB	line 288	C/C++ Problem
+#1497-D (MISRA-C:2004 5.7/A) No identifier name should be reused ("Reserved8")	TM4C123xx.h	/MegaProject/LIB	line 297	C/C++ Problem
+#1497-D (MISRA-C:2004 5.7/A) No identifier name should be reused ("Reserved9")	TM4C123xx.h	/MegaProject/LIB	line 306	C/C++ Problem
+#1497-D (MISRA-C:2004 5.7/A) No identifier name should be reused ("RIS")	TM4C123xx.h	/MegaProject/LIB	line 92	C/C++ Problem
+#1497-D (MISRA-C:2004 5.7/A) No identifier name should be reused ("RIS")	TM4C123xx.h	/MegaProject/LIB	line 205	C/C++ Problem
+#1497-D (MISRA-C:2004 5.7/A) No identifier name should be reused ("RIS")	TM4C123xx.h	/MegaProject/LIB	line 244	C/C++ Problem
+#1497-D (MISRA-C:2004 5.7/A) No identifier name should be reused ("RIS")	TM4C123xx.h	/MegaProject/LIB	line 342	C/C++ Problem
+#1497-D (MISRA-C:2004 5.7/A) No identifier name should be reused ("RIS")	TM4C123xx.h	/MegaProject/LIB	line 372	C/C++ Problem
+#1497-D (MISRA-C:2004 5.7/A) No identifier name should be reused ("Sequencer")	ADC.h	/MegaProject/MCAL/ADC	line 55	C/C++ Problem
+#1497-D (MISRA-C:2004 5.7/A) No identifier name should be reused ("SYNC")	TM4C123xx.h	/MegaProject/LIB	line 367	C/C++ Problem
+#1498-D (MISRA-C:2004 6.3/A) typedefs that indicate size and signedness should be used in place of the basic numerical types	main.c	/MegaProject	line 22	C/C++ Problem
