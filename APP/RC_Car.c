@@ -30,6 +30,12 @@
 #include "event_groups.h"
 #include "RC_Car.h"
 
+typedef struct
+{
+	u64 Distance;
+	u32 CRC;
+}Distance_t;
+
 /**********************************************************************************************************************
  *  LOCAL DATA 
  *********************************************************************************************************************/
@@ -57,6 +63,30 @@ xQueueHandle APP_LDRDiffMailBox=NULL;
 /**********************************************************************************************************************
  *  LOCAL FUNCTIONS
  *********************************************************************************************************************/
+
+static u32 Calculate_CRC32(const u8 *Buffer, u8 Buffer_Length)
+{
+    u32 CRC_Value = 0xFFFFFFFF;
+    u8 i=0;
+    u8 j=0;
+    /*Calculate CRC with our Generator*/
+    for (i = 0; i < Buffer_Length; ++i)
+    {
+        CRC_Value = CRC_Value ^ Buffer[i];
+        for (j = 0; j < 32; ++j)
+        {
+            if (CRC_Value & 0x80000000)
+            {
+                CRC_Value = (CRC_Value << 1) ^ 0x04C11DB7;
+            }
+            else
+            {
+                CRC_Value = (CRC_Value << 1);
+            }
+        }
+    }
+    return CRC_Value;
+}
 
 /******************************************************************************
  * \Syntax          : void Ultrasonic_Notifaction(void)
@@ -179,7 +209,7 @@ void CAR_Init(void)
     /*Create Event Group For car Events*/
     APP_CarEvents=xEventGroupCreate();
     /*Create a mailbox for the Distance*/
-    APP_DistanceMailBox=xQueueCreate(1U,sizeof(u64));
+    APP_DistanceMailBox=xQueueCreate(1U,sizeof(Distance_t));
     /*Create MailBox to hold LDR Difference*/
     APP_LDRDiffMailBox=xQueueCreate(1U,sizeof(u16));
     /*Create ultrasonic Semaphore and start Taken*/
@@ -226,12 +256,14 @@ void CAR_Init(void)
  *******************************************************************************/
 void Ultrasonic_Task(void* Copy_UltraPar)
 {
-	static u64 Local_Distance=0;
+	static Distance_t Local_Distance=0;
 	TickType_t Local_50msDelay=pdMS_TO_TICKS(50);
     while(1)
     {
         xSemaphoreTake(APP_UtrasonicSem,portMAX_DELAY);
-		ultrasonic_distance(&Local_Distance, &Ultrasonic_Notifaction);
+		ultrasonic_distance(&(Local_Distance.Distance), &Ultrasonic_Notifaction);
+		/*Calcuate CRC on the Distance*/
+		Local_Distance.CRC=Calculate_CRC32(&(Local_Distance.Distance),4U);
         /*Send the Distance in The mailbox*/
         xQueueOverwrite(APP_DistanceMailBox,&Local_Distance);
         vTaskDelay(Local_50msDelay);
@@ -250,45 +282,56 @@ void Ultrasonic_Task(void* Copy_UltraPar)
  *******************************************************************************/
 void avoid_obstacles(void* Copy_AvoidPar)
 {
-    static uint8_t Timeout = 0;
-    static u64 Local_RecDistance=0;
+    static u8 Timeout = 0;
+    static Distance_t Local_RecDistance=0;
     static EventBits_t Local_Avoid=0;
+	u32 Local_CRC=0;
     TickType_t Local_50msPer=pdMS_TO_TICKS(50U);
     while(1)
     {
         xEventGroupWaitBits(APP_CarEvents, APP_CAR_MOVING, pdFALSE, pdFALSE, portMAX_DELAY);
         xQueuePeek(APP_DistanceMailBox, &Local_RecDistance, portMAX_DELAY);
-        //Local_RecDistance=Local_Distance;
-        if(Local_RecDistance<=MIN_DISTANCE)
-        {
-            /*Its Time to avoid obstacle*/
-            xEventGroupSetBits(APP_CarEvents, APP_CAR_AVOID);
-        }
-        else
-        {
-            /* MISRA */
-        }
-        Local_Avoid=xEventGroupGetBits(APP_CarEvents);
-        if ((Local_Avoid&APP_CAR_AVOID))
-        {
-            if (Local_RecDistance > 30U)
-            {
-                Motor_Set_Direction(Motor_Left_Reverse);
-                Motor_Set_Direction(Motor_Right_Forward);
-                if((APP_CarTimer-Timeout) > 0U)
-                {
-                    xEventGroupClearBits(APP_CarEvents, APP_CAR_AVOID);
-                }
-            }
-            else
-            {
-                Motor_Set_Speed(80U, Right_Motors);
-                Motor_Set_Speed(80U, Left_Motors);
-                Motor_Set_Direction(Motor_Left_Reverse);
-                Motor_Set_Direction(Motor_Right_Reverse);
-                Timeout=APP_CarTimer;
-            }
-        }
+		/*check if the CRC is the same and the data is valid*/
+		Local_CRC=Calculate_CRC32(&(Local_RecDistance.Distance_t),4U);
+		if(Local_RecDistance.CRC_Value == Local_CRC)
+		{
+			if(Local_RecDistance<=MIN_DISTANCE)
+			{
+				/*Its Time to avoid obstacle*/
+				xEventGroupSetBits(APP_CarEvents, APP_CAR_AVOID);
+			}
+			else
+			{
+				/* MISRA */
+			}
+			Local_Avoid=xEventGroupGetBits(APP_CarEvents);
+			if ((Local_Avoid&APP_CAR_AVOID))
+			{
+				if (Local_RecDistance > 30U)
+				{
+					Motor_Set_Direction(Motor_Left_Reverse);
+					Motor_Set_Direction(Motor_Right_Forward);
+					/* Rotate 90 Degree */
+					if((APP_CarTimer-Timeout) > 0U)
+					{
+						xEventGroupClearBits(APP_CarEvents, APP_CAR_AVOID);
+					}
+				}
+				else
+				{
+					Motor_Set_Speed(80U, Right_Motors);
+					Motor_Set_Speed(80U, Left_Motors);
+					Motor_Set_Direction(Motor_Left_Reverse);
+					Motor_Set_Direction(Motor_Right_Reverse);
+					Timeout=APP_CarTimer;
+				}
+			}
+		}
+		else
+		{
+			/*Do Nothing*/
+		}
+	}
         vTaskDelay(Local_50msPer);
     }
 }
@@ -447,19 +490,19 @@ void ldr_swing_car(void* Copy_SwingPar)
 void LCD_Distancedisplay(void* Copy_DisPar)
 {
     static u64 Local_LastDistance=0;
-    static u64 Local_MessuredDistance=0;
+    static Distance_t Local_MessuredDistance=0;
     TickType_t Local_StartTick=xTaskGetTickCount();
     TickType_t Local_100MSDelay=pdMS_TO_TICKS(100U);
     while(1)
     {
         xQueuePeek(APP_DistanceMailBox, &Local_MessuredDistance, portMAX_DELAY);
-        if(Local_LastDistance != Local_MessuredDistance)
+        if(Local_LastDistance != Local_MessuredDistance.Distance)
         {
             xSemaphoreTake(APP_LCDMutex,portMAX_DELAY);
             LCD_GoToXY(&APP_LCD, 8U, 1U);
-            LCD_WriteNumber(&APP_LCD, (s64)Local_MessuredDistance);
+            LCD_WriteNumber(&APP_LCD, (s64)(Local_MessuredDistance.Distance);
             LCD_SendString(&APP_LCD, "  ");
-            Local_LastDistance=Local_MessuredDistance;
+            Local_LastDistance=Local_MessuredDistance.Distance;
             xSemaphoreGive(APP_LCDMutex);
         }
         else
